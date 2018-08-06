@@ -1,0 +1,7 @@
+## File with common environment variables
+
+COUNTRIES_ENV=("countries" "countries-assembly" "countries-network" "192.1.1.0" "192.1.1.4" "192.1.1.2" "192.1.1.3")
+AIRPORTS_ENV=("airports" "airports-assembly" "airports-network" "192.1.1.8" "192.1.1.12" "192.1.1.10" "192.1.1.11")
+CADDY_ENV=("caddy-server" "caddy-server" "host" "" "" "" "")
+DOCKER_REGISTRY="lozanomatheus"
+DOCKERHUB_API="https://hub.docker.com/v2/repositories"
