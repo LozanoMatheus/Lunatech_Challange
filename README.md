@@ -17,6 +17,7 @@ This project was created with purpose to delivery a local environment running th
   * [Deploy - The first time](https://github.com/LozanoMatheus/Lunatech_Challange#deploy---the-first-time) - Showing how to execute when is the first time.
   * [Upgrade/Downgrade](https://github.com/LozanoMatheus/Lunatech_Challange#upgradedowngrade) - Executing the upgrade or downgrade an app in running state with zero-downtime.
   * [An example](https://github.com/LozanoMatheus/Lunatech_Challange#an-example) - An pratical exemple for deploying and redeploying process.
+* [Technical Assignment](https://github.com/LozanoMatheus/Lunatech_Challange#technical-assignment) - The technical assignment for Lunatech Labs
 
 ---
 
@@ -81,3 +82,18 @@ Simple as the deployment, you can execute the delivery_lunatech Go script and pa
 This video will show to us how to use it.
 
 [![asciicast](https://asciinema.org/a/WJe9Hcpvm4jtQrIUJiw5bHtiO.png)](https://asciinema.org/a/WJe9Hcpvm4jtQrIUJiw5bHtiO)
+
+---
+
+- [x] Entire stack able to run in a local machine;
+- [x] Apps isolated from each other;
+  - [x] Deny inter-communication between the applications; and
+  - [x] Deny external requests;
+- [x] An Proxy/Loadbalancer expose on port 8000;
+- [x] The airports-service in version 1.0.1 must be the first deployment; and
+- [x] Upgrade/Downgrade cannot be causing a service interruption.
+- Bonus points:
+  - [ ] Use a CI/CD tool; and
+  - [x] Single click/command to deploy the entire stack.
+
+_Note: I do not use the CI / CD because it will create one more dependency/complex and I tried to focus on simplicity and velocity to deploy. But I used the Blue/Green Deployment process, it's a DevOps culture._
