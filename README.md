@@ -2,15 +2,31 @@
 
 This project was created with purpose to delivery a local environment running the country- and airport-service.
 
+---
+
 ## Index
 
-> TODO
+* [Dependencies](https://github.com/LozanoMatheus/Lunatech_Challange#dependencies) - Dependencies to use/execute this project.
+* [Overview](https://github.com/LozanoMatheus/Lunatech_Challange#overview) - Overview and explaining the why's.
+  * [What is Two Times](https://github.com/LozanoMatheus/Lunatech_Challange#what-is-two-times) - Explaining why I use two script, one to deploy and other to redeploy (Upgrade/Downgrade).
+  * [Why Docker](https://github.com/LozanoMatheus/Lunatech_Challange#why-docker) - Explaining why I use Docker.
+  * [Why Golang](https://github.com/LozanoMatheus/Lunatech_Challange#why-golang) - Explaining why I use Golang as the main script.
+  * [Why Caddy](https://github.com/LozanoMatheus/Lunatech_Challange#why-caddy) - Explaining why I use Caddy as a Web Server/*.
+  * [Why Shell and not Go](https://github.com/LozanoMatheus/Lunatech_Challange#why-shell-and-not-go) - Explaining why I use Shell script and not just the Golang.
+* [How to use](https://github.com/LozanoMatheus/Lunatech_Challange#how-to-use) - This section will show how to use this project.
+  * [Deploy - The first time](https://github.com/LozanoMatheus/Lunatech_Challange#deploy---the-first-time) - Showing how to execute when is the first time.
+  * [Upgrade/Downgrade](https://github.com/LozanoMatheus/Lunatech_Challange#upgradedowngrade) - Executing the upgrade or downgrade an app in running state with zero-downtime.
+  * [An example](https://github.com/LozanoMatheus/Lunatech_Challange#an-example) - An pratical exemple for deploying and redeploying process.
+
+---
 
 ## Dependencies
 
 * __[Docker](https://docs.docker.com/install/)__ - Using 17.02 or above
 * __Linux/Bash__ - Tested in Centos 7.x and Debian Stretch/Jessie
   _Can be implemented in other Operational Systems, like Windows._
+
+---
 
 ## Overview
 
@@ -39,6 +55,8 @@ For this project I chose the Caddy because it's very light, can use a proxy/load
 ### Why Shell and not Go
 
 Just because I have more experience in Bash/Shell scripts than with Go and in a short time would not possible to delivery this project with a good quality. But in the future my intentions it's to improve somethings and rewrite the codes.
+
+---
 
 ## How to use
 
