@@ -1,0 +1,65 @@
+## File with common functions
+
+## Function to set date/time
+function dateTime() {
+  echo "[ `date +'%Y-%m-%d %T.%3N'` ]" $@
+}
+
+## Starting containers
+function startContainer() {
+  dateTime "Creating $1-container$num docker container"
+  docker run --rm --detach \
+    --name $1-container$num --net=$3 \
+    $DOCKER_REGISTRY/$2:$4 > /dev/null 2>&1
+  if [[ $? -eq 0 ]]; then
+    dateTime "Success to create $1-container$num container"
+    sleep 5s
+    startApp $1-container$num
+  else
+    dateTime "Error to create $1-container$num container"
+    exit 1
+  fi
+}
+
+## Executing x times the same command
+function run() {
+  local NUMBER=$1
+  shift
+  for num in `seq $NUMBER`; do
+    $@
+  done
+  num=1
+}
+
+## Make the a request to start the app
+function startApp {
+  if [[ $1 != *"caddy-server-container"* ]] ; then
+      dateTime "Starting app from $1"
+      local CONTAINER_IPV4=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $1`
+      curl http://$CONTAINER_IPV4:8080/health/ready > /dev/null 2>&1
+    if [[ $? -eq 0 ]]; then
+      dateTime "Success to start app in $1"
+    else
+      dateTime "Error to start app in $1"
+      exit 1
+    fi
+  fi
+}
+
+## Function to check if the tag is already running and if exists in Docker Hub.
+function checkTag() {
+  docker ps -n 2 --format "{{.Image}} {{.CreatedAt}}" --filter name=$1 | \
+      sort -rk2 | head -1 | \
+      grep "$2:$3" > /dev/null 2>&1
+  if [[ $? -eq 0 ]]; then
+    dateTime "The image $DOCKER_REGISTRY/$2:$3 is already running"
+    exit 1
+  fi
+  curl -sk $DOCKERHUB_API/$DOCKER_REGISTRY/$2/tags/ | \
+      jq -r '.results[].name' | \
+      grep $3 > /dev/null 2>&1
+  if [[ $? -ne 0 ]]; then
+    dateTime "Tag $3 for $2 repository don't exist"
+    exit 1
+  fi
+}
