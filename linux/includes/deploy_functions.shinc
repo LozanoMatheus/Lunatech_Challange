@@ -1,0 +1,24 @@
+## File with functions only for deploy pipeline
+
+## Function to create networks for countries-and airport-service
+function createNetwork() {
+  dateTime "Creating $1 for docker"
+  docker network create -d bridge \
+    --subnet=$2/29 \
+    --ip-range=$3/29 \
+    --internal \
+    --label "goal"="challange" \
+    --label "company"="lunatechlabs" \
+    $1 > /dev/null 2>&1
+  if [[ $? -eq 0 ]]; then
+    dateTime "Success to create $1"
+  else
+    dateTime "Error to create $1"
+    exit 1
+  fi
+}
+
+## Check network already exists
+function checkNetwork() {
+  docker network ls --format {{.Name}} | grep $service > /dev/null 2>&1
+}
