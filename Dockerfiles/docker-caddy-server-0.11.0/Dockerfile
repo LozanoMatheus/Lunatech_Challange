@@ -1,7 +1,9 @@
 FROM alpine:3.8
 LABEL Goal="Lunatech Labs - Challange" \
         Maintainer="Matheus Lozano Sanches" \
-        Package="airports-assembly-1.0.1.jar"
+        Package="caddy_v0.11.0_linux_amd64.tar.gz" \
+        GitHub="https://github.com/LozanoMatheus/Lunatech_Challange" \
+        DockerHub="https://hub.docker.com/r/lozanomatheus/caddy-server/"
 
 ADD caddy_v0.11.0_linux_amd64.tar.gz /etc/
 
