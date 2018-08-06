@@ -1,8 +1,8 @@
 FROM alpine:3.8
-LABEL Goal="Lunatech Labs - Challange" \
+LABEL Goal="Lunatech Labs - Challenge" \
         Maintainer="Matheus Lozano Sanches" \
         Package="caddy_v0.11.0_linux_amd64.tar.gz" \
-        GitHub="https://github.com/LozanoMatheus/Lunatech_Challange" \
+        GitHub="https://github.com/LozanoMatheus/Lunatech_Challenge" \
         DockerHub="https://hub.docker.com/r/lozanomatheus/caddy-server/"
 
 ADD caddy_v0.11.0_linux_amd64.tar.gz /etc/
