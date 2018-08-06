@@ -14,7 +14,7 @@ This project was created with purpose to delivery a local environment running th
 
 ## Overview
 
-This project was developed to be as easy as possible. So to start the first environment you can just clone this repo and execute the delilunatech. It will create a Docker network, pull the imagens, start two container for each app (country- and airport-service) and one for Caddy (It's a web server with a lot of features) and will make a request to each app containers.
+This project was developed to be as easy as possible. So to start the first environment you can just clone this repo and execute the delivery_lunatech. It will create a Docker network, pull the imagens, start two container for each app (country- and airport-service) and one for Caddy (It's a web server with a lot of features) and will make a request to each app containers.
 
 ### What is Two Times
 
@@ -44,4 +44,22 @@ Just because I have more experience in Bash/Shell scripts than with Go and in a 
 
 ### Deploy - The first time
 
+Just execute the delivery_lunatech Go script. It will create the entire stack (Docker network and docker container) and will start the apps.
+
+```bash
+./delivery_lunatech
 ```
+
+### Upgrade/Downgrade
+
+Simple as the deployment, you can execute the delivery_lunatech Go script and pass the app name and version/tag do you wish.
+
+```bash
+./delivery_lunatech airports-assembly 1.1.0
+```
+
+### An example
+
+This video will show to us how to use it.
+
+[![asciicast](https://asciinema.org/a/WJe9Hcpvm4jtQrIUJiw5bHtiO.png)](https://asciinema.org/a/WJe9Hcpvm4jtQrIUJiw5bHtiO)
