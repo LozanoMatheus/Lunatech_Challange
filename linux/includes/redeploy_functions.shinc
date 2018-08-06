@@ -1,0 +1,16 @@
+## File with functions only for redeploy (downgrade/upgrade) pipeline
+
+## Used to change versions between already running and a wish version
+function blueGreen() {
+  local CONTAINERS=`docker ps --format "{{.Names}} {{.CreatedAt}}" | grep -i $1 | sort -k 2`
+  local DESTROY_CONTAINER=`echo -e "$CONTAINERS\n" | sed -n 's/ .*$// ; 1p'`
+  dateTime "Deleting the container $DESTROY_CONTAINER"
+  docker rm -f $(echo $DESTROY_CONTAINER) > /dev/null 2>&1
+  if [[ $? -eq 0 ]]; then
+    dateTime "Success to delete $DESTROY_CONTAINER"
+  else
+    dateTime "Error to create $1"
+    exit 1
+  fi
+  startContainer $1 $2 $3 $4
+}
