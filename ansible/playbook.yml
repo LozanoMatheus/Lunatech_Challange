@@ -1,0 +1,22 @@
+- name: Deploying the infraestructure
+  hosts: localhost
+  gather_facts: false
+  roles:
+  ## Check the prereqs before execution.
+  ## If not, it will setup an environment variable and will create
+  - { role: 01-check_env }
+
+  # ## This role will deploy the entire stack and will startup the apps 
+  # ## and send a request to each container app
+  - { role: 02-deploy_env,
+    when: ( what_exec == 'all' or what_exec == 'deploy' ) }
+
+  # ## This role will upgrade the airports-service to 1.1.0 version 
+  # ## and send a request to each container to this app
+  - { role: 03-upgrade_env,
+    when: ( what_exec == 'all' or what_exec == 'upgrade' ) }
+
+  # ## This role will downgrade the airports-service to 1.0.1 version 
+  # ## and send a request to each container to this app
+  - { role: 04-downgrade_env,
+    when: ( what_exec == 'all' or what_exec == 'downgrade' ) }
