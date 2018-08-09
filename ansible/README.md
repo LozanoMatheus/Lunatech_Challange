@@ -84,6 +84,6 @@ _Note: The current version is controlled by current_version environment variable
 
 ## TODO
 
-- [] Fix the containers/networks dependency from become=true
+- [ ] Fix the containers/networks dependency from become=true
     _You must always become a sudo, just for now :D_
-- [] Create the Upgrade/Downgrade playbooks
+- [ ] Create the Upgrade/Downgrade playbooks
