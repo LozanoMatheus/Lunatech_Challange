@@ -6,7 +6,21 @@ The goal of this playbooks is to delivery the countries-and airports-service usi
 
 ## Index
 
-> TODO
+* [Dependencies](https://github.com/LozanoMatheus/Lunatech_Challenge/tree/ansible_delivery/ansible#dependencies) - Dependencies to use/execute this project.
+* [How To](https://github.com/LozanoMatheus/Lunatech_Challenge/tree/ansible_delivery/ansible#how-to) - Dependencies to use/execute this project.
+  * [Deploying the stack](https://github.com/LozanoMatheus/Lunatech_Challenge/tree/ansible_delivery/ansible#deploying-the-stack) - An example to deploy this project for the first time.
+  * [Upgrade app](https://github.com/LozanoMatheus/Lunatech_Challenge/tree/ansible_delivery/ansible#upgrade-app) - Updating an app to _latest_version_ version. _Will be implemented_
+  * [Downgrade app](https://github.com/LozanoMatheus/Lunatech_Challenge/tree/ansible_delivery/ansible#downgrade-app) - Downgrade an app to _latest_version_ version. _Will be implemented_
+  * [Upgrade or Downgrade other app](https://github.com/LozanoMatheus/Lunatech_Challenge/tree/ansible_delivery/ansible#upgrade-or-downgrade-other-app) - Deploying (Upgrade and/or Downgrade) any app. _Will be implemented_
+  * [TODO](https://github.com/LozanoMatheus/Lunatech_Challenge/tree/ansible_delivery/ansible#todo) - TODO list
+
+---
+
+## Dependencies
+
+* __[Docker](https://docs.docker.com/install/)__ - Using 17.02 or above
+* __[Anible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)__ - Using 2.5.4 or above
+  * __[Docker-Py](https://pypi.org/project/docker/)__ - Using 1.7.0 or above
 
 ---
 
@@ -20,8 +34,6 @@ The deploy step must be executed before the upgrade and/or downgrade steps.
 
 The checkup environment (check_env) will be execute always and will be before the others roles/tasks. It will be to find out if there is any missing dependency.
 
----
-
 ### Deploying the stack
 
 This step will create the entire stack: Docker network, Docker containers with apps/web server and will send a request to apps.
@@ -32,8 +44,6 @@ To execute just the deploy:
 ansible-playbook -e what_exec=deploy playbook.yml
 ```
 
----
-
 ### Upgrade app
 
 It will upgrade the airports-service to 1.1.0 version.
@@ -41,8 +51,6 @@ It will upgrade the airports-service to 1.1.0 version.
 ```bash
 ansible-playbook -e what_exec=upgrade playbook.yml
 ```
-
----
 
 ### Downgrade app
 
@@ -52,8 +60,6 @@ It will downgrade the airports-service to 1.0.1 version.
 ansible-playbook -e what_exec=downgrade playbook.yml
 ```
 
----
-
 ### Executing all process
 
 If you want to start the entire stack, upgrade the airports-service and downgrade the same app. You can follow the example below.
@@ -61,8 +67,6 @@ If you want to start the entire stack, upgrade the airports-service and downgrad
 ```bash
 ansible-playbook -e what_exec=all playbook.yml
 ```
-
----
 
 ### Upgrade or Downgrade other app
 
@@ -75,3 +79,11 @@ ansible-playbook -e '{"countries": {"latest_version": "1.1.0"}, "what_exec": "up
 ```
 
 _Note: The current version is controlled by current_version environment variable. Do not change this variable, it will cause a lot troubles._
+
+---
+
+## TODO
+
+- [] Fix the containers/networks dependency from become=true
+    _You must always become a sudo, just for now :D_
+- [] Create the Upgrade/Downgrade playbooks
