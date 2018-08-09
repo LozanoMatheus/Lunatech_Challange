@@ -4,25 +4,31 @@ services:
   airports:
     container_name: airports-container
     image_name: airports-assembly
+    network_driver: bridge
     network_name: airports-network
+    inicial_ip: 10
     subnet: "192.1.1.8/29"
-    iprange: "192.1.1.12"
+    ip_range: "192.1.1.12/29"
     main_version: "1.0.1"
     latest_version: "1.1.0"
     total_instances: 2
   countries:
     container_name: countries-container
     image_name: countries-assembly
+    network_driver: bridge
     network_name: countries-network
+    inicial_ip: 2
     subnet: "192.1.1.0/29"
-    iprange: "192.1.1.4"
+    ip_range: "192.1.1.4/29"
     main_version: "1.0.1"
     latest_version: "1.0.1"
     total_instances: 2
   caddy:
     container_name: caddy-server-container
     image_name: caddy-server
+    network_driver: host
     network_name: host
+    inicial_ip: 1
     main_version: "0.11.0"
     latest_version: "0.11.0"
     total_instances: 1
