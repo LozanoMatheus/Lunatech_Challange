@@ -2,6 +2,14 @@
 
 The goal of this playbooks is to delivery the countries-and airports-service using Ansible.
 
+---
+
+## Index
+
+> TODO
+
+---
+
 ## How to
 
 In all steps will check before to run and have rollback process.
@@ -10,14 +18,60 @@ You must inform the operation you want.
 
 The deploy step must be executed before the upgrade and/or downgrade steps.
 
-### Deploy the stack
+The checkup environment (check_env) will be execute always and will be before the others roles/tasks. It will be to find out if there is any missing dependency.
+
+---
+
+### Deploying the stack
 
 This step will create the entire stack: Docker network, Docker containers with apps/web server and will send a request to apps.
 
+To execute just the deploy:
+
+```bash
+ansible-playbook -e what_exec=deploy playbook.yml
+```
+
+---
+
 ### Upgrade app
 
-It will upgrade the airports-service to 1.1.0.
+It will upgrade the airports-service to 1.1.0 version.
+
+```bash
+ansible-playbook -e what_exec=upgrade playbook.yml
+```
+
+---
 
 ### Downgrade app
 
-It will downgrade the airports-service to 1.0.1.
+It will downgrade the airports-service to 1.0.1 version.
+
+```bash
+ansible-playbook -e what_exec=downgrade playbook.yml
+```
+
+---
+
+### Executing all process
+
+If you want to start the entire stack, upgrade the airports-service and downgrade the same app. You can follow the example below.
+
+```bash
+ansible-playbook -e what_exec=all playbook.yml
+```
+
+---
+
+### Upgrade or Downgrade other app
+
+The nice answer is: It's possible to upgrade/downgrade without changes :D
+
+You can do it just changing the variables do you want. See this example:
+
+```bash
+ansible-playbook -e '{"countries": {"latest_version": "1.1.0"}, "what_exec": "upgrade"}' playbook.yml
+```
+
+_Note: The current version is controlled by current_version environment variable. Do not change this variable, it will cause a lot troubles._
