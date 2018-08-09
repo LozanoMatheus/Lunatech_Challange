@@ -1,0 +1,66 @@
+- name: Creating the countries-container
+  docker_container:
+    name: "{{ services.countries.container_name }}{{ item }}"
+    image: "{{ docker_registry }}/{{ services.countries.image_name }}:{{ services.countries.main_version }}"
+    state: started
+    detach: yes
+    network_mode: "{{ services.countries.network_driver }}"
+    networks:
+      - name: "{{ services.countries.network_name }}"
+  when: create_countries_container is defined
+  with_sequence: count={{ services.countries.total_instances }}
+  become: yes
+
+- name: Creating the airports-container
+  docker_container:
+    name: "{{ services.airports.container_name }}{{ item }}"
+    image: "{{ docker_registry }}/{{ services.airports.image_name }}:{{ services.airports.main_version }}"
+    state: started
+    detach: yes
+    network_mode: "{{ services.airports.network_driver }}"
+    networks:
+      - name: "{{ services.airports.network_name }}"
+  when: create_airports_container is defined 
+  with_sequence: count={{ services.airports.total_instances }}
+  become: yes
+
+- name: Creating the caddy-container
+  docker_container:
+    name: "{{ services.caddy.container_name }}{{ item }}"
+    image: "{{ docker_registry }}/{{ services.caddy.image_name }}:{{ services.caddy.main_version }}"
+    state: started
+    detach: yes
+    network_mode: "{{ services.caddy.network_driver }}"
+    networks:
+      - name: "{{ services.caddy.network_name }}"
+  when: create_caddy_container is defined 
+  with_sequence: count={{ services.caddy.total_instances }}
+  become: yes
+
+- name: Send a request to airports-service
+  uri:
+    url: http://{{ '192.1.1.' + item }}:8080/airports
+    method: GET
+    timeout: 90
+    body_format: json
+    status_code: 200
+  with_sequence: start={{ services.airports.inicial_ip }} count={{ services.airports.total_instances }}
+
+- name: Send a request to countries-service
+  uri:
+    url: http://{{ '192.1.1.' + item }}:8080/countries
+    method: GET
+    timeout: 90
+    body_format: json
+    status_code: 200
+  with_sequence: start={{ services.countries.inicial_ip }} count={{ services.countries.total_instances }}
+
+- name: Send a request to caddy-service
+  uri:
+    url: http://localhost:8000/{{ item.key }}/{{ item.key }}
+    method: GET
+    timeout: 90
+    body_format: json
+    status_code: 200
+  when: item.key != 'caddy'
+  loop: "{{ lookup('dict', services) }}"
