@@ -2,23 +2,23 @@
 ## In here, it will execute a bash command to check.
 ## If I use a docker_container command, it will create the container.
 ## And I used the grep because the return code. In docker ps --filter, it return 0 always.
-- name: Checking docker container {{ services.contries.container_name }}
-  shell: docker ps --format "{{'{{'}}.Names}}" | grep -i {{ services.contries.container_name }}{{ item }}
-  with_sequence: count={{ services.contries.total_instances }}
+- name: Checking docker container {{ services.countries.container_name }}
+  shell: docker ps --format "{{'{{'}}.Names}}" | grep -i {{ services.countries.container_name }}{{ item }}
+  with_sequence: count={{ services.countries.total_instances }}
   ignore_errors: true
-  register: contries_container
+  register: countries_container
   changed_when: false
 
 ## Now the ansible will try to find any command has return code not equals to 0.
 - set_fact:
-    missing_contries_container: " {{ item | regex_replace('.*-i ') }}"
-  loop: "{{ contries_container | json_query(search_query) }}"
+    missing_countries_container: " {{ item | regex_replace('.*-i ') }}"
+  loop: "{{ countries_container | json_query(search_query) }}"
   vars:
     search_query: "results[?rc!=`0`].cmd"
 
 ## Will print the container name as missing.
-- debug: msg="The container {{ missing_contries_container }} is missing."
-  when: missing_contries_container is defined
+- debug: msg="The container {{ missing_countries_container }} is missing."
+  when: missing_countries_container is defined
 
 ## This section it's to check if Airports Container alread exists
 ## In here, it will execute a bash command to check.
