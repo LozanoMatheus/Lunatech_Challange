@@ -1,6 +1,8 @@
 - name: Deploying the infraestructure
   hosts: localhost
   gather_facts: false
+  vars:
+    what_exec: check
   roles:
   ## Check the prereqs before execution.
   ## If not, it will setup an environment variable and will create
