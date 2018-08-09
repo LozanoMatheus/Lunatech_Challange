@@ -1,0 +1,11 @@
+- name: Creating the countries-and airport-network
+  docker_network:
+    name: "{{ item.value.network_name }}"
+    state: present
+    driver: "{{ item.value.network_driver }}"
+    ipam_options:
+      subnet: "{{ item.value.subnet }}"
+      iprange: "{{ item.value.ip_range }}"
+  when: item.value.network_driver != 'host'
+  loop: "{{ lookup('dict', services) }}"
+  become: yes
