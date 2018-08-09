@@ -1,0 +1,41 @@
+- name: Checking docker networks to {{ services.airports.container_name }}
+  shell: docker network ls | grep -i {{ services.airports.network_name }}
+  ignore_errors: true
+  register: airports_network
+  changed_when: false
+
+- name: Checking docker networks to {{ services.countries.container_name }}
+  shell: docker network ls | grep -i {{ services.countries.network_name }}
+  ignore_errors: true
+  register: countries_network
+  changed_when: false
+
+- name: Checking docker networks to {{ services.caddy.container_name }}
+  shell: docker network ls | grep -i {{ services.caddy.network_name }}
+  ignore_errors: true
+  register: caddy_network
+  changed_when: false
+
+- set_fact:
+    create_airports_network: "{{ airports_network.cmd | regex_search(services.airports.network_name) }}"
+  when: airports_network.rc > 0
+
+- name: Check if will need create the {{ services.airports.network_name }}
+  debug: msg="It will be necessary to create"
+  when: airports_network.rc > 0
+
+- set_fact:
+    create_countries_network: "{{ countries_network.cmd | regex_search(services.countries.network_name) }}"
+  when: countries_network.rc > 0
+
+- name: Check if will need create the {{ services.countries.network_name }}
+  debug: msg="It will be necessary to create"
+  when: countries_network.rc > 0
+
+- set_fact:
+    create_caddy_network: "{{ caddy_network.cmd | regex_search(services.caddy.network_name) }}"
+  when: caddy_network.rc > 0
+
+- name: Check if will need create the {{ services.caddy.network_name }}
+  debug: msg="It will be necessary to create"
+  when: caddy_network.rc > 0
