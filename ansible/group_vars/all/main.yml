@@ -16,7 +16,7 @@ services:
     latest_version: "1.0.1"
     total_instances: 2
   caddy:
-    container_name: caddy-container
+    container_name: caddy-server-container
     image_name: caddy-server
     network_name: host
     main_version: "0.11.0"
