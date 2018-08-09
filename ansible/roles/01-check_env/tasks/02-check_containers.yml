@@ -1,0 +1,65 @@
+## This section it's to check if Countries Container alread exists
+## In here, it will execute a bash command to check.
+## If I use a docker_container command, it will create the container.
+## And I used the grep because the return code. In docker ps --filter, it return 0 always.
+- name: Checking docker container {{ services.contries.container_name }}
+  shell: docker ps --format "{{'{{'}}.Names}}" | grep -i {{ services.contries.container_name }}{{ item }}
+  with_sequence: count={{ services.contries.total_instances }}
+  ignore_errors: true
+  register: contries_container
+  changed_when: false
+
+## Now the ansible will try to find any command has return code not equals to 0.
+- set_fact:
+    missing_contries_container: " {{ item | regex_replace('.*-i ') }}"
+  loop: "{{ contries_container | json_query(search_query) }}"
+  vars:
+    search_query: "results[?rc!=`0`].cmd"
+
+## Will print the container name as missing.
+- debug: msg="The container {{ missing_contries_container }} is missing."
+  when: missing_contries_container is defined
+
+## This section it's to check if Airports Container alread exists
+## In here, it will execute a bash command to check.
+## If I use a docker_container command, it will create the container.
+## And I used the grep because the return code. In docker ps --filter, it return 0 always.
+- name: Checking docker container {{ services.airports.container_name }}
+  shell: docker ps --format "{{'{{'}}.Names}}" | grep -i {{ services.airports.container_name }}{{ item }}
+  with_sequence: count={{ services.airports.total_instances }}
+  ignore_errors: true
+  register: airports_container
+  changed_when: false
+
+## Now the ansible will try to find any command has return code not equals to 0.
+- set_fact:
+    missing_airports_container: " {{ item | regex_replace('.*-i ') }}"
+  loop: "{{ airports_container | json_query(search_query) }}"
+  vars:
+    search_query: "results[?rc!=`0`].cmd"
+
+## Will print the container name as missing.
+- debug: msg="The container {{ missing_airports_container }} is missing."
+  when: missing_airports_container is defined
+
+## This section it's to check if Caddy Container alread exists
+## In here, it will execute a bash command to check.
+## If I use a docker_container command, it will create the container.
+## And I used the grep because the return code. In docker ps --filter, it return 0 always.
+- name: Checking docker container {{ services.caddy.container_name }}
+  shell: docker ps --format "{{'{{'}}.Names}}" | grep -i {{ services.caddy.container_name }}{{ item }}
+  with_sequence: count={{ services.caddy.total_instances }}
+  ignore_errors: true
+  register: caddy_container
+  changed_when: false
+
+## Now the ansible will try to find any command has return code not equals to 0.
+- set_fact:
+    missing_caddy_container: " {{ item | regex_replace('.*-i ') }}"
+  loop: "{{ caddy_container | json_query(search_query) }}"
+  vars:
+    search_query: "results[?rc!=`0`].cmd"
+
+## Will print the container name as missing.
+- debug: msg="The container {{ missing_caddy_container }} is missing."
+  when: missing_caddy_container is defined
