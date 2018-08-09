@@ -11,14 +11,14 @@
 
 ## Now the ansible will try to find any command has return code not equals to 0.
 - set_fact:
-    missing_countries_container: " {{ item | regex_replace('.*-i ') }}"
+    create_countries_container: " {{ item | regex_replace('.*-i ') }}"
   loop: "{{ countries_container | json_query(search_query) }}"
   vars:
     search_query: "results[?rc!=`0`].cmd"
 
 ## Will print the container name as missing.
-- debug: msg="The container {{ missing_countries_container }} is missing."
-  when: missing_countries_container is defined
+- debug: msg="The container {{ create_countries_container }} is missing."
+  when: create_countries_container is defined
 
 ## This section it's to check if Airports Container alread exists
 ## In here, it will execute a bash command to check.
@@ -33,14 +33,14 @@
 
 ## Now the ansible will try to find any command has return code not equals to 0.
 - set_fact:
-    missing_airports_container: " {{ item | regex_replace('.*-i ') }}"
+    create_airports_container: " {{ item | regex_replace('.*-i ') }}"
   loop: "{{ airports_container | json_query(search_query) }}"
   vars:
     search_query: "results[?rc!=`0`].cmd"
 
 ## Will print the container name as missing.
-- debug: msg="The container {{ missing_airports_container }} is missing."
-  when: missing_airports_container is defined
+- debug: msg="The container {{ create_airports_container }} is missing."
+  when: create_airports_container is defined
 
 ## This section it's to check if Caddy Container alread exists
 ## In here, it will execute a bash command to check.
@@ -55,11 +55,11 @@
 
 ## Now the ansible will try to find any command has return code not equals to 0.
 - set_fact:
-    missing_caddy_container: " {{ item | regex_replace('.*-i ') }}"
+    create_caddy_container: " {{ item | regex_replace('.*-i ') }}"
   loop: "{{ caddy_container | json_query(search_query) }}"
   vars:
     search_query: "results[?rc!=`0`].cmd"
 
 ## Will print the container name as missing.
-- debug: msg="The container {{ missing_caddy_container }} is missing."
-  when: missing_caddy_container is defined
+- debug: msg="The container {{ create_caddy_container }} is missing."
+  when: create_caddy_container is defined
