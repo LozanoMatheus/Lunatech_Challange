@@ -1,0 +1,13 @@
+
+- import_tasks: 01-create_networks.yml
+  when:
+    create_airports_network is defined or
+    create_countries_network is defined or
+    create_caddy_network is defined
+
+- import_tasks: 02-create_containers.yml
+  when:
+    create_airports_container is defined or
+    create_countries_container is defined or
+    create_caddy_container is defined
+
