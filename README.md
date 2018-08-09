@@ -85,6 +85,8 @@ This video will show to us how to use it.
 
 ---
 
+## Technical Assignment
+
 - [x] Entire stack able to run in a local machine;
 - [x] Apps isolated from each other;
   - [x] Deny inter-communication between the applications; and
