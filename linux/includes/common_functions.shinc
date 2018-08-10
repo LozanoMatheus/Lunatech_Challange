@@ -13,7 +13,7 @@ function startContainer() {
     $DOCKER_REGISTRY/$2:$4 > /dev/null 2>&1
   if [[ $? -eq 0 ]]; then
     dateTime "Success to create $1-container$num container"
-    sleep 5s
+    sleep 15s
     startApp $1-container$num
   else
     dateTime "Error to create $1-container$num container"
