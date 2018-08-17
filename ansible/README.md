@@ -18,6 +18,7 @@ The goal of this playbooks is to delivery the countries-and airports-service usi
 
 ## Dependencies
 
+* __[VirtualEnv](https://virtualenvwrapper.readthedocs.io/en/latest/install.html)__ (Optional) - Using 1.11.4 or above
 * __[Docker](https://docs.docker.com/install/)__ - Using 17.02 or above
 * __[Anible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)__ - Using 2.5.4 or above
   * __[Docker-Py](https://pypi.org/project/docker/)__ - Using 1.7.0 or above
@@ -33,6 +34,34 @@ You must inform the operation you want.
 The deploy step must be executed before the upgrade and/or downgrade steps.
 
 The checkup environment (check_env) will be execute always and will be before the others roles/tasks. It will be to find out if there is any missing dependency.
+
+### Using Virtual Env Wrapper
+
+To solve a few problems with Ansible updates (In retro-compatibles updates), we can use the virtualenvwrapper to fix it and always have the same packages versions.
+
+First of all, we must the python-dev(apt)/python-devel(yum). It will allow us to use the requirements.txt.
+
+```bash
+sudo apt-get update
+sudo apt-get -y install python-dev
+```
+
+__or__
+
+```bash
+sudo yum -y install python-devel gcc
+```
+
+Now we must update the pip and setuptools packages, after the virtualenv activation.
+```bash
+echo 'pip install --upgrade pip setuptools' >> ~/.virtualenvs/postactivate
+```
+
+The last step we will create the virtualenv and will enable it.
+```bash
+mkvirtualenv --clear lunatech_challenge
+pip install --upgrade ansible==1.6.2 docker==3.4.1 jmespath==0.9.3
+```
 
 ### Deploying the stack
 
