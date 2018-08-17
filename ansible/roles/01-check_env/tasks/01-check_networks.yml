@@ -1,11 +1,13 @@
 - name: Checking docker networks to {{ services.airports.container_name }}
   shell: docker network ls | grep -i {{ services.airports.network_name }}
+  become: yes
   ignore_errors: true
   register: airports_network
   changed_when: false
 
 - name: Checking docker networks to {{ services.countries.container_name }}
   shell: docker network ls | grep -i {{ services.countries.network_name }}
+  become: yes
   ignore_errors: true
   register: countries_network
   changed_when: false
@@ -13,6 +15,7 @@
 ## Will be implemented
 # - name: Checking docker networks to {{ services.caddy.container_name }}
 #   shell: docker network ls | grep -i {{ services.caddy.network_name }}
+#   become: yes
 #   ignore_errors: true
 #   register: caddy_network
 #   changed_when: false

@@ -5,6 +5,7 @@
 - name: Checking docker container {{ services.countries.container_name }}
   shell: docker ps --format "{{'{{'}}.Names}}" | grep -i {{ services.countries.container_name }}{{ item }}
   with_sequence: count={{ services.countries.total_instances }}
+  become: yes
   ignore_errors: true
   register: countries_container
   changed_when: false
@@ -27,6 +28,7 @@
 - name: Checking docker container {{ services.airports.container_name }}
   shell: docker ps --format "{{'{{'}}.Names}}" | grep -i {{ services.airports.container_name }}{{ item }}
   with_sequence: count={{ services.airports.total_instances }}
+  become: yes
   ignore_errors: true
   register: airports_container
   changed_when: false
@@ -49,6 +51,7 @@
 - name: Checking docker container {{ services.caddy.container_name }}
   shell: docker ps --format "{{'{{'}}.Names}}" | grep -i {{ services.caddy.container_name }}{{ item }}
   with_sequence: count={{ services.caddy.total_instances }}
+  become: yes
   ignore_errors: true
   register: caddy_container
   changed_when: false
