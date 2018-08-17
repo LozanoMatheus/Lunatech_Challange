@@ -8,6 +8,7 @@ The goal of this playbooks is to delivery the countries-and airports-service usi
 
 * [Dependencies](https://github.com/LozanoMatheus/Lunatech_Challenge/tree/ansible_delivery/ansible#dependencies) - Dependencies to use/execute this project.
 * [How To](https://github.com/LozanoMatheus/Lunatech_Challenge/tree/ansible_delivery/ansible#how-to) - Dependencies to use/execute this project.
+  * [Using Virtual Env Wrapper](https://github.com/LozanoMatheus/Lunatech_Challenge/tree/ansible_delivery/ansible#using-virtual-env-wrapper) - A best practice to use ansible, an isolated environment.
   * [Deploying the stack](https://github.com/LozanoMatheus/Lunatech_Challenge/tree/ansible_delivery/ansible#deploying-the-stack) - An example to deploy this project for the first time.
   * [Upgrade app](https://github.com/LozanoMatheus/Lunatech_Challenge/tree/ansible_delivery/ansible#upgrade-app) - Updating an app to _latest_version_ version. _Will be implemented_
   * [Downgrade app](https://github.com/LozanoMatheus/Lunatech_Challenge/tree/ansible_delivery/ansible#downgrade-app) - Downgrade an app to _latest_version_ version. _Will be implemented_
